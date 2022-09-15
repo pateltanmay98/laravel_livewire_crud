@@ -10,5 +10,6 @@
     <body>
         {{ $slot }}
         @livewireScripts
+        @include('scripts.scripts')
     </body>
 </html>
