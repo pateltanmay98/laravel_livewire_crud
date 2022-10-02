@@ -14,4 +14,8 @@ class StudentCourse extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function course(){
+        return $this->belongsTo(Student::class,'course_id','id');
+    }
 }

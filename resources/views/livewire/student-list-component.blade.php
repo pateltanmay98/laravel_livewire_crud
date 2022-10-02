@@ -3,42 +3,41 @@
     <button class="btn btn-primary btn-sm mb-3" wire:click="OpenAddStudentModal()">Add New Student</button>
     <div>
        @if ($checkedStudent)
-            <button class="btn btn-danger" wire:click="deleteStudents()">Selected Countries ({{ count($checkedCountry) }})</button>
+            <button class="btn btn-danger" wire:click="deleteStudents()">Selected Students ({{ count($checkedStudent) }})</button>
        @endif
     </div>
     <table class="table table-hover">
         <thead class="thead-inverse">
             <tr>
                 <th></th>
-                <th>Continent</th>
-                <th>Country</th>
-                <th>Capital City</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
                 <th>Actions</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
-                @forelse ($countries as $country)
-                    <tr class="{{ $this->isChecked($country->id) }}">
-                    <td><input type="checkbox" value="{{ $country->id }}" wire:model="checkedCountry"></td>
-                    <td>{{ $country->continent->continent_name }}</td>
-                    <td>{{ $country->country_name }}</td>
-                    <td>{{ $country->capital_city }}</td>
+                @forelse ($students as $student)
+                    <tr class="{{ $this->isChecked($student->id) }}">
+                    <td><input type="checkbox" value="{{ $student->id }}" wire:model="checkedStudent"></td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->email }}</td>
+                    <td>{{ $student->course->name }}</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-danger btn-sm" wire:click="deleteConfirm({{$country->id}})">Delete</button>
-                            <button class="btn btn-success btn-sm" wire:click="OpenEditCountryModal({{$country->id}})">Edit</button>
+                            <button class="btn btn-danger btn-sm" wire:click="deleteConfirm({{$student->id}})">Delete</button>
+                            <button class="btn btn-success btn-sm" wire:click="OpenEditCountryModal({{$student->id}})">Edit</button>
                         </div>
                     </td>
                 </tr>
                 @empty
-                    <code>No country found!</code>
+                    <code>No student found!</code>
                 @endforelse
                 
             </tbody>
     </table>
-    @if (count($countries))
-        {{ $countries->links('livewire-pagination-links') }}
+    @if (count($students))
+        {{ $students->links('livewire-pagination-links') }}
     @endif
     @include('modals.add-modal')
     @include('modals.edit-modal')
